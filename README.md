@@ -95,6 +95,40 @@ Choose the index.html file.
 
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/af7045ab-d2c0-41de-b9a9-2138d6565ce6" />
 
+Notice in the Browse Pastries section that there are two buttons. The "on offer" view displays by default and it shows six menu items.
+
+<img width="956" alt="image" src="https://github.com/user-attachments/assets/9ba67a44-4855-4273-98e5-7c9846aeaad5" />
+
+Select the "view all" view. Notice that many more menu items display 
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/730fc067-357a-4707-acc1-11810e9509dd" />
+
+<h2>Task 2: Creating the first API endpoint (GET)</h2>
+In this task, you will create a REST API called ProductsApi. You will also create the first of three resources for the API.
+The first API resource will be called products. It will make a GET request so that the website can retrieve all rows from the FoodProducts DynamoDB database table. You will then deploy it in an API Gateway stage that's named prod. When a user visits the website, it will make an AJAX request and return a list of café menu items from API gateway (it will return mock data for now).
+To complete all these tasks, you will use the SDK for Python.
+In the AWS Cloud9 navigation pane, expand the python_3 directory and open the file named create_products_api.py.
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/60bfa753-a895-4b0d-8171-086f60be7b2a" />
+
+On line 3, replace the (fill me in) with the correct value that will create an API Gateway client. Which is ‘apigateway’
+Take a moment to analyze the first part of what this code will do when you run it:
+<ol>
+          <li>Lines 5-24 create a REST API that's named ProductsApi, and a resource that's named products.</li>
+          <li>Lines 28-33 create a method request of type GET in the products resource.</li>
+</ol>
+You will analyze what the additional lines of code accomplish later in this task.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
