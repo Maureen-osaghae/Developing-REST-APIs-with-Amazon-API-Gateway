@@ -144,7 +144,8 @@ On the left is the Client.
       <li>Lines 61-92 - The Method Response returns the REST API response back to the Client that the request originated from.</li>
 <ol>
 
-Analysis: To make it easier during this initial API development phase, you will use mock data. When you test the API call, it will not actually connect to the database. Instead, it will return the data that's hardcoded in the responseTemplate part of the code (lines 67-91). 
+<h3>Analysis:</h3>
+To make it easier during this initial API development phase, you will use mock data. When you test the API call, it will not actually connect to the database. Instead, it will return the data that's hardcoded in the responseTemplate part of the code (lines 67-91). 
 This approach reduces the scope of potential errors during testing. You can stay focused in this lab on ensuring that the REST API logic is well defined. 
 However, the structure of this mock data intentionally matches the data structure that will appear in the next lab when Lambda will be interacting with the database table.
 The key values will be mapped to the attributes that are defined in the DynamoDB table (which Icreated in the previous lab).
@@ -153,6 +154,78 @@ Note: attributes in DynamoDB are not primatives. Instead, they are wrapper objec
 In the API Gateway console, choose the  TEST link, then scroll to the bottom and choose the Test button. 
 
 In the panel on the right, you should see the following response body, response headers, and log information. 
+
+<img width="733" alt="image" src="https://github.com/user-attachments/assets/934c7ff5-891f-40bc-9d35-3e5ee9181262" />
+
+Congratulations! You have now successfully created and tested a REST API with a resource that makes a GET request. 
+
+<h2>Task 3: Creating the second API endpoint (GET)</h2>
+In this task, you will define another API endpoint of type GET. This endpoint will eventually support calls to/products/on_offer from the cafe website and it will return in stock items. 
+In the AWS Cloud9 navigation pane, expand the python_3 directory and open the file named create_on_offer_api.py.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/4322a6f8-6d0f-41b8-b025-f71f791f1f2b" />
+
+  <ol>
+        <li>In a browser tab, go to the API Gateway console and choose the ProductsApi API that you created a moment ago.</li>
+        <li>In the panel on the left, choose Resources.</li>
+        <li>Choose GET under products</li>
+        <li>In the breadcrumb navigation at the top of the screen (above the Actions menu), you can see APIs > ProductsAPI followed by an id in parenthesis. </li>
+        <li>This is the api_id.</li>
+        <li>On the same line, you will see /products, followed by another id in parenthesis. </li>
+        <li>This is the resource parent_id </li>
+  </ol>
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/9cb77570-0551-40f5-b653-ba839c1696a2" />
+
+Create the API resource. Save the change to the file.
+Then in the Bash terminal, verify that the current directory is python_3 and run the code.
+python create_on_offer_api.py
+
+<h3>Observe the results.</h3>
+Return to the AWS Management Console browser tab, and open the API Gateway console. Choose the APIs link in the breadcrumb navigation above, then on the left, open the ProductsApi by choosing the link.
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/b3f04eac-7d26-4b92-9389-4d13f74046ae" />
+
+Notice that there is now a nested resource called /on_offer under the /products resource. 
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/9ac82ea9-847a-406f-b3fa-e714cdc0c2dd" />
+
+Test the /on_offer resource. Use the  Test link, the same way you tested the first resource in the previous task. You should receive a 200 HTML status code response. 
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/3bb1228f-cdff-4798-a4f8-576477bb8bb8" />
+
+Congratuations! You now have two API resources the website will be able to use. 
+
+<h2>Task 4: Creating the third API endpoint (POST)</h2>
+In this task, you will create a third resource for the API, /create_report. This resource will be configured at the same level as /products (not as a nested resource under products).
+Café staff who are logged in (authenticated) will later use this API resource to request an inventory report.
+The report details will be discussed in later labs. However, for now, you will configure the API to support this feature. You will also test that the website can make an Asynchronous JavaScript and XML (AJAX) request.
+It is fully expected that the AJAX request will fail when you test it because you haven't configured an authentication mechanism yet. However, you will configure authentication in a later lab.
+
+In the AWS Cloud9 IDE, if the create_products_api.py file is not already open, open it (you ran this file in Task 2). Next, in the python_3 directory, also open the create_report_api.py file.
+In the main code editor window, right-click the create_report_api.py file tab and choose Split Pane in Two Columns 
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/ca6594e7-70f2-40f9-8df0-b1dbb41dd477" />
+
+Analyze and update the create_report_api.py code. Be sure to compare the code in this file to the create_products_api.py code while you do the analysis and updates. 
+
+Tip: You could use the console as you did before to discover the api_id. However you can also use the AWS Command Line Interface (AWS CLI) to find the value of the API ID by running the following command: aws apigateway get-rest-apis --query items[0].id --output text
+
+Analyze the rest of the create_report_api code while comparing it to the create_products_api code. The code in the two files looks similar, but they have some differences:
+
+<ol>
+      <li>The httpMethod that's invoked is POST (instead of GET).</li>
+      <li>This code creates a new resource with a pathPart of create_report, instead of products.</li>
+      <li>The product_integration_response defines three responseParameters. In create_report_api these parameters do not allow Cross-Origin Resource Sharing (CORS), whereas in 
+          create_products_api they do allow it.</li>
+      <li>The product_integration_response also hardcodes a response for testing purposes, though the user is not authenticated. (The purpose of the test is to ensure that the client can 
+           receive a response.)</li>
+<o/l>
+
+
+
+
+
+
 
 
 
