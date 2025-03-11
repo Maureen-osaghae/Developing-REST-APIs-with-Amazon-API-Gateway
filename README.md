@@ -219,7 +219,113 @@ Analyze the rest of the create_report_api code while comparing it to the create_
           create_products_api they do allow it.</li>
       <li>The product_integration_response also hardcodes a response for testing purposes, though the user is not authenticated. (The purpose of the test is to ensure that the client can 
            receive a response.)</li>
-<o/l>
+</ol>
+
+Save the changes to the file. In the next step, you will run the code in create_report_api.py. In the terminal, confirm that you are in the python_3 directory, and then run the code to create the third endpoint.
+
+python create_report_api.py
+
+In the API Gateway console, view the details of the report API that you configured. Return to the API Gateway console tab and refresh the page. Confirm that you are in ProductsApi.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/60706493-3b58-4103-b36c-75c17f64b06f" />
+
+In the navigation pane, confirm that Resources is selected, and choose /create_report > POST.
+You should see the details of the POST method execution.
+Choose the  TEST link, then choose the Test button at the bottom of the screen. 
+In the panel on the right, you should see the following response body, response headers, and log information. 
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/5bd32836-ff7c-4d67-aad7-63c72c09eac6" />
+
+In the panel on the right, you should see the following response body, response headers, and log information. 
+
+<h2>Task 5: Deploying the API</h2>
+Now that you have defined all three resources in the API, the next step is to deploy the API.
+Deploy the API.
+<ol>
+      <li>Still in the API Gateway console where you have the ProductsApi details open, under Resources select the root /</li>
+      <li>From the Actions menu, choose Deploy API and then fill in the details:.</li>
+      <li>Deployment stage: [New Stage].</li>
+      <li>Stage name: prod</li>
+      <li>Stage description: (leave blank)</li>
+      <li>Deployment description: (leave blank)</li>
+      <li>Choose Deploy</li>
+</ol>
+
+<img width="957" alt="image" src="https://github.com/user-attachments/assets/c5b67669-7f9f-4bf9-8152-4d21fc1ae4ee" />
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/89471b66-7798-428e-98ec-40344a3c529a" />
+
+Copy the Invoke URL value to your clipboard. You will use it next.
+
+<h2>Task 6: Updating the website to use the APIs</h2>
+In this final task in the lab, you will update and then test the website files that are hosted on Amazon S3. After you complete these updates, the website will invoke the REST API that you just created. 
+Update the website's config.js file. In the Cloud9 IDE, open resources/website/config.js
+On line 2, replace null with the Invoke URL value you copied a moment ago. Be sure to surround it in quotes. Verify that prod appears at the end of the URL with no trailing slash.
+Save the change to the file.
+
+<img width="553" alt="image" src="https://github.com/user-attachments/assets/83c9d1e7-103f-4d8c-abe7-346c3f3c36ec" />
+
+<img width="533" alt="image" src="https://github.com/user-attachments/assets/cc42f1d7-1cbb-4643-b831-146aa30e6c70" />
+
+Load the latest café webpage with the developer console view exposed.
+
+      If you still have the cafe website open in a browser tab, return to it. If you do not still have it open, reopen it now by following these steps:
+
+<ol>
+      <li>In the S3 console, choose the bucket that contains your website files.</li>
+      <li>Choose index.html and then copy the Object URL.</li>
+      <li>Load the Object URL in a new browser tab.</li>
+      <li>Test and observe details about the website and the application logic. </li>
+      <li>Scroll to the top of the Cafe website and choose login.</li>
+</ol>
+You will receive a message of "No API to call". This is expected. The authentication logic will be implemented in a later lab. The generate report call from the website will also be implemented in a later lab, from the webpage that will load after a successful login.
+
+<img width="956" alt="image" src="https://github.com/user-attachments/assets/4b3a8da4-f06b-4a2e-910a-9fba8d804ed3" />
+
+Notice that on offer is chosen by default.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/0aad50cd-e1a4-4b85-a2f7-33eff4c36152" />
+
+Choose view all. You should now see three products listed (these match the mock data you set in the /products resource you configured in Task 2). 
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/55fd5acf-c21e-479e-ac81-038a4d7d0b6a" />
+
+Congratulations! Your website is now making calls to the API that you created and deployed. 
+Sofía is satisfied that she has made progress! 
+After she successfully set up the website on Amazon S3, Sofía has been excited to improve the website's functionality. Her larger plan is to build a serverless dynamic website with a database backend. Sofía's plan has three major milestones.
+<ol>
+      <li>The first milestone was to create a database backend to store café data. She accomplished that in the previous lab by using DynamoDB.</li>
+      <li>The second milestone is to create a REST API so that the webpages that are hosted on Amazon S3 can interact with the backend database. Sofía just completed the most difficult part of 
+          that task during this lab.</li>
+</ol>
+
+The following diagram summarizes the features that Sofía has built in the last lab and in this lab:
+
+<img width="424" alt="image" src="https://github.com/user-attachments/assets/2810fc98-b2e5-4b48-bf88-2ce18e30b512" />
+
+Though the API currently uses mock data, it should be straightforward to replace the mock endpoints with actual endpoints that can communicate with the database. 
+The third milestone will be accomplished in the next lab. Sofía will create AWS Lambda functions. The REST API resources that she created in this lab will trigger those Lambda functions to query the DynamoDB table. This database table contains the actual data that she stored in the previous lab.
+
+<img width="430" alt="image" src="https://github.com/user-attachments/assets/89377d56-6154-4c47-b31e-4f39a3fa0d0e" />
+
+Finally, in later labs in the course, Sofía will use Amazon Cognito to implement the authentication logic that the create_report API call expects.
+Sofía knows that she has work to do. For now, though, Sofía decides to celebrate her most recent accomplishment by relaxing with her friends.
+
+<h2>Lab complete </h2>
+
+© 2024 Amazon Web Services, Inc. and its affiliates. All rights reserved. This work may not be reproduced or redistributed, in whole or in part, without prior written permission from Amazon Web Services, Inc. Commercial copying, lending, or selling is prohibited.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
