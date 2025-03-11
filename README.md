@@ -111,12 +111,51 @@ In the AWS Cloud9 navigation pane, expand the python_3 directory and open the fi
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/60bfa753-a895-4b0d-8171-086f60be7b2a" />
 
 On line 3, replace the (fill me in) with the correct value that will create an API Gateway client. Which is ‘apigateway’
-Take a moment to analyze the first part of what this code will do when you run it:
+Take a moment to analyze the first part of what this code will do when you run it (nameproductapi code): 
 <ol>
           <li>Lines 5-24 create a REST API that's named ProductsApi, and a resource that's named products.</li>
           <li>Lines 28-33 create a method request of type GET in the products resource.</li>
 </ol>
 You will analyze what the additional lines of code accomplish later in this task.
+
+Run the code.
+
+Save the change to the file. Then, in the Bash terminal, go to the directory that contains the Python code file, and run the code.
+      cd python_3
+      python create_products_api.py
+      
+<img width="709" alt="image" src="https://github.com/user-attachments/assets/4acd8bc1-8e13-41a2-8c03-4a0225fd0e21" />
+
+Return to the AWS Management Console browser tab, and open the API Gateway console.
+Open the ProductsApi that you just created by choosing the link.
+       Choose the GET method that you defined.
+       You should see the details of the GET method execution in a graphical format.
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/802dab19-cd65-4dc3-841e-f2c451989e77" />
+
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/9c01044c-859b-4f4d-b8ac-e54f7462eaf7" />
+
+Take a moment to study the data flow in the GET method that you defined. 
+On the left is the Client.
+<ol>
+      <li>Lines 28-33 - When you run the Test, the Method Request is sent to the URL in the Amazon Resource Name (ARN) detail. The request doesn't require any authorization to invoke it.</li>
+      <li>Lines 50-58 - The Integration Request of type MOCK is invoked, and the mock endpoint receives the data.</li>
+      <li>Lines 35-48 - The mock endpoint invokes the Integration Response, which invokes the Method Response.</li>
+      <li>Lines 61-92 - The Method Response returns the REST API response back to the Client that the request originated from.</li>
+<ol>
+
+Analysis: To make it easier during this initial API development phase, you will use mock data. When you test the API call, it will not actually connect to the database. Instead, it will return the data that's hardcoded in the responseTemplate part of the code (lines 67-91). 
+This approach reduces the scope of potential errors during testing. You can stay focused in this lab on ensuring that the REST API logic is well defined. 
+However, the structure of this mock data intentionally matches the data structure that will appear in the next lab when Lambda will be interacting with the database table.
+The key values will be mapped to the attributes that are defined in the DynamoDB table (which Icreated in the previous lab).
+Note: attributes in DynamoDB are not primatives. Instead, they are wrapper objects (as shown in the example code below). This is why there is a slight difference between the key names in the JSON and the attribute names in DynamoDB. 
+
+In the API Gateway console, choose the  TEST link, then scroll to the bottom and choose the Test button. 
+
+In the panel on the right, you should see the following response body, response headers, and log information. 
+
+
+
 
 
 
